@@ -48,36 +48,36 @@ export const CTA_BANNER = {
 };
 
 export const BADGES = [
-  "Licensed & Insured",
-  "Free Estimates",
+  "Lic. #CFC1429294",
+  "Commercial & Residential",
+  "Se Habla Español",
   "24/7 Emergency Service",
-  "Upfront Pricing",
 ];
 
 export const SERVICES = [
   {
-    name: "Emergency Plumbing",
-    desc: "Burst pipes, overflowing toilets, no hot water, sewer backups — we answer the phone day or night and dispatch a licensed plumber fast.",
-  },
-  {
     name: "Drain Cleaning",
-    desc: "Slow drains, clogged kitchen sinks, backed-up showers, and main line stoppages cleared with professional cabling and hydro jetting.",
+    desc: "Slow drains, clogged kitchen sinks, backed-up showers, and main line stoppages cleared fast with professional cabling.",
   },
   {
-    name: "Water Heater Repair & Installation",
-    desc: "Tank and tankless water heater repair, replacement, and new installations. All major brands serviced — gas and electric.",
+    name: "Water Jetting",
+    desc: "High-pressure hydro jetting clears grease, scale, and tree roots from sewer and drain lines — restores full flow without digging.",
   },
   {
-    name: "Leak Detection & Repair",
-    desc: "Slab leaks, pinhole leaks, hidden pipe leaks behind walls — we find the source without tearing up your home and repair it right.",
+    name: "Sewer Camera Inspection",
+    desc: "Pinpoint blockages, broken pipes, and root intrusion with high-definition sewer camera inspection. Know exactly what's wrong before we dig.",
   },
   {
-    name: "Repipes & Pipe Replacement",
-    desc: "Full-home repipes for older Florida homes with failing galvanized or polybutylene plumbing. Copper and PEX options, permitted and inspected.",
+    name: "New Construction Plumbing",
+    desc: "Full plumbing rough-in and finish for new residential and commercial builds. Permitted, inspected, and built to South Florida code.",
   },
   {
-    name: "Toilets, Faucets & Fixtures",
-    desc: "Repair or replace toilets, faucets, garbage disposals, shower valves, and water-saving fixtures. Quality parts, clean installs.",
+    name: "Renovations & Remodels",
+    desc: "Kitchen and bathroom remodels, additions, and re-pipes. We work clean with your contractor or homeowner to keep the project on schedule.",
+  },
+  {
+    name: "Commercial Plumbing",
+    desc: "Restaurants, offices, retail, and multi-unit properties. Preventive maintenance, emergency response, and code-compliant repairs.",
   },
 ];
 
