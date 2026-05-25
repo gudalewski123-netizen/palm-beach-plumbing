@@ -475,12 +475,9 @@ function LandingPage() {
         eyebrow={lang === "es" ? "Nuestro Trabajo" : "Our Work"}
         heading={lang === "es" ? "Plomería de Calidad, Foto Por Foto" : "Quality Plumbing, Photo by Photo"}
         photos={[
-          { src: "/hero-bg.jpg", alt: "Faucet with water flow" },
-          { src: "https://images.unsplash.com/photo-1542013936693-884638332954?w=1600&q=80&auto=format&fit=crop", alt: "Plumbing tools and copper pipes" },
-          { src: "/services-bg.jpg", alt: "Outdoor spigot fitting" },
-          { src: "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=1600&q=80&auto=format&fit=crop", alt: "Plumber working on pipe fitting" },
-          { src: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=1600&q=80&auto=format&fit=crop", alt: "Modern bathroom fixture install" },
-          { src: "https://images.unsplash.com/photo-1585128792020-803d29415281?w=1600&q=80&auto=format&fit=crop", alt: "Clean kitchen sink plumbing" },
+          { src: "/hero-bg.jpg", alt: "Faucet with running water" },
+          { src: "/services-bg.jpg", alt: "Brass spigot fitting under pressure" },
+          { src: "/team-photo.jpg", alt: "Plumber working on a copper line" },
         ]}
       />
 
@@ -551,7 +548,7 @@ function LandingPage() {
                 <div className="flex gap-1 text-yellow-500 mb-6">
                   {[1,2,3,4,5].map(star => <Star key={star} className="w-5 h-5 fill-current" />)}
                 </div>
-                <p className="text-lg mb-8 leading-relaxed italic text-white/90">"{review.text}"</p>
+                <p className="text-lg mb-8 leading-relaxed italic text-foreground/90">"{review.text}"</p>
                 <div className="flex items-center justify-between mt-auto">
                   <div className="font-condensed font-bold text-xl uppercase tracking-wide">{review.author}</div>
                   <div className="text-xs text-muted-foreground uppercase tracking-widest font-bold">{review.source}</div>
