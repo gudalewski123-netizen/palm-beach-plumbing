@@ -2,6 +2,43 @@ import React, { useState, useEffect } from "react";
 import { PhoneCall, ShieldCheck, Hammer, Menu, X, MapPin, ChevronRight, Star, ArrowRight, Zap, MessageSquare, Mail, MessageCircle } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { Switch, Route, Router as WouterRouter, Link } from "wouter";
+
+// Pure-CSS scroll fade-in (avoids framer-motion's React-duplicate issue in pnpm)
+function useFadeOnView<T extends HTMLElement>(): React.RefObject<T> {
+  const ref = React.useRef<T>(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.opacity = "0";
+    el.style.transform = "translateY(24px)";
+    el.style.transition = "opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)";
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+            obs.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return ref as React.RefObject<T>;
+}
+
+function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const ref = useFadeOnView<HTMLDivElement>();
+  return (
+    <div ref={ref} style={{ transitionDelay: `${delay}ms` }} className={className}>
+      {children}
+    </div>
+  );
+}
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -136,9 +173,9 @@ function QuoteForm() {
   // PITCH_MODE: show "call us" card instead of the form
   if (PITCH_MODE) {
     return (
-      <section id="quote" className="py-20 bg-card border-y border-white/10">
+      <section id="quote" className="py-20 bg-card border-y border-border">
         <div className="container mx-auto px-6 max-w-2xl text-center">
-          <h2 className="text-4xl md:text-5xl font-condensed font-black uppercase tracking-wide text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-condensed font-black uppercase tracking-wide text-foreground mb-4">
             Get a Free Quote
           </h2>
           <p className="text-muted-foreground mb-8">
@@ -157,10 +194,10 @@ function QuoteForm() {
   }
 
   return (
-    <section id="quote" className="py-20 bg-card border-y border-white/10">
+    <section id="quote" className="py-20 bg-card border-y border-border">
       <div className="container mx-auto px-6 max-w-2xl">
         <div className="text-center mb-10">
-          <h2 className="text-4xl md:text-5xl font-condensed font-black uppercase tracking-wide text-white mb-3">
+          <h2 className="text-4xl md:text-5xl font-condensed font-black uppercase tracking-wide text-foreground mb-3">
             Get a Free Quote
           </h2>
           <p className="text-muted-foreground">
@@ -171,7 +208,7 @@ function QuoteForm() {
         {status === "success" ? (
           <div className="text-center bg-background border border-primary/40 rounded p-10">
             <ShieldCheck className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h3 className="text-2xl font-condensed font-bold uppercase text-white mb-2">Got it.</h3>
+            <h3 className="text-2xl font-condensed font-bold uppercase text-foreground mb-2">Got it.</h3>
             <p className="text-muted-foreground">
               We received your request. Expect a call from {BUSINESS.phone} within 1 business day.
             </p>
@@ -181,20 +218,20 @@ function QuoteForm() {
             <div className="grid md:grid-cols-2 gap-5">
               <input
                 name="name" required placeholder="Your name *"
-                className="bg-background border border-white/10 rounded px-4 py-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary"
+                className="bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
               />
               <input
                 name="phone" required type="tel" placeholder="Phone *"
-                className="bg-background border border-white/10 rounded px-4 py-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary"
+                className="bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
               />
             </div>
             <input
               name="email" required type="email" placeholder="Email *"
-              className="w-full bg-background border border-white/10 rounded px-4 py-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary"
+              className="w-full bg-background border border-border rounded px-4 py-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary"
             />
             <select
               name="service" required defaultValue=""
-              className="w-full bg-background border border-white/10 rounded px-4 py-3 text-white focus:outline-none focus:border-primary"
+              className="w-full bg-background border border-border rounded px-4 py-3 text-foreground focus:outline-none focus:border-primary"
             >
               <option value="" disabled>Which service do you need? *</option>
               {SERVICES.map((s) => (
@@ -204,7 +241,7 @@ function QuoteForm() {
             </select>
             <textarea
               name="message" rows={4} placeholder="Tell us about your project (optional)"
-              className="w-full bg-background border border-white/10 rounded px-4 py-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary resize-none"
+              className="w-full bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary resize-none"
             />
             <button
               type="submit" disabled={status === "submitting"}
@@ -254,14 +291,14 @@ function LandingPage() {
     <div className="min-h-[100dvh] flex flex-col bg-background text-foreground selection:bg-primary selection:text-white">
 
       {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-white/10 py-4 shadow-2xl" : "bg-transparent py-6"}`}>
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border py-4 shadow-2xl" : "bg-transparent py-6"}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo("hero")}>
             <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
               <Hammer className="text-white w-6 h-6" />
             </div>
             <div>
-              <div className="font-condensed text-2xl font-bold leading-none tracking-wider text-white uppercase">{BUSINESS.shortName}</div>
+              <div className="font-condensed text-2xl font-bold leading-none tracking-wider text-foreground uppercase">{BUSINESS.shortName}</div>
               <div className="font-condensed text-primary text-sm font-bold tracking-widest uppercase leading-none">{BUSINESS.trade} · {BUSINESS.location}</div>
             </div>
           </div>
@@ -269,7 +306,7 @@ function LandingPage() {
             <button onClick={() => scrollTo("services")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navServices}</button>
             <button onClick={() => scrollTo("about")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navAbout}</button>
             <button onClick={() => scrollTo("reviews")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navReviews}</button>
-            <div className="flex items-center gap-1 border border-white/15 rounded px-1 py-1 font-condensed text-sm font-bold uppercase tracking-widest" aria-label="Language selector">
+            <div className="flex items-center gap-1 border border-border rounded px-1 py-1 font-condensed text-sm font-bold uppercase tracking-widest" aria-label="Language selector">
               <button onClick={() => setLang("en")} className={`px-2 py-1 rounded transition-colors ${lang === "en" ? "bg-primary text-white" : "text-muted-foreground hover:text-white"}`} aria-pressed={lang === "en"}>EN</button>
               <button onClick={() => setLang("es")} className={`px-2 py-1 rounded transition-colors ${lang === "es" ? "bg-primary text-white" : "text-muted-foreground hover:text-white"}`} aria-pressed={lang === "es"}>ES</button>
             </div>
@@ -281,7 +318,7 @@ function LandingPage() {
               {BUSINESS.phone}
             </a>
           </div>
-          <button className="md:hidden text-white p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button className="md:hidden text-foreground p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -290,13 +327,13 @@ function LandingPage() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl pt-24 px-6 flex flex-col gap-6 md:hidden">
-          <button onClick={() => scrollTo("services")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navServices}</button>
-          <button onClick={() => scrollTo("about")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navAbout}</button>
-          <button onClick={() => scrollTo("reviews")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navReviews}</button>
-          <button onClick={() => scrollTo("contact")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navContact}</button>
+          <button onClick={() => scrollTo("services")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-border pb-4">{t.navServices}</button>
+          <button onClick={() => scrollTo("about")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-border pb-4">{t.navAbout}</button>
+          <button onClick={() => scrollTo("reviews")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-border pb-4">{t.navReviews}</button>
+          <button onClick={() => scrollTo("contact")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-border pb-4">{t.navContact}</button>
           <div className="flex items-center gap-2 mt-2" aria-label="Language selector">
-            <button onClick={() => setLang("en")} className={`flex-1 py-3 rounded border font-condensed text-xl uppercase tracking-widest ${lang === "en" ? "bg-primary text-white border-primary" : "border-white/15 text-muted-foreground"}`} aria-pressed={lang === "en"}>English</button>
-            <button onClick={() => setLang("es")} className={`flex-1 py-3 rounded border font-condensed text-xl uppercase tracking-widest ${lang === "es" ? "bg-primary text-white border-primary" : "border-white/15 text-muted-foreground"}`} aria-pressed={lang === "es"}>Español</button>
+            <button onClick={() => setLang("en")} className={`flex-1 py-3 rounded border font-condensed text-xl uppercase tracking-widest ${lang === "en" ? "bg-primary text-white border-primary" : "border-border text-muted-foreground"}`} aria-pressed={lang === "en"}>English</button>
+            <button onClick={() => setLang("es")} className={`flex-1 py-3 rounded border font-condensed text-xl uppercase tracking-widest ${lang === "es" ? "bg-primary text-white border-primary" : "border-border text-muted-foreground"}`} aria-pressed={lang === "es"}>Español</button>
           </div>
           <a href={waLink(BUSINESS.phoneRaw, t.whatsappPrefill)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-[#25D366] text-white px-6 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold mt-2">
             <FaWhatsapp className="w-6 h-6" />
@@ -312,9 +349,9 @@ function LandingPage() {
       {/* Hero */}
       <section id="hero" className="relative min-h-[90vh] flex items-center pt-20">
         <div className="absolute inset-0 z-0">
-          <img src="/hero-bg.jpg" alt="Plumbing work — water from faucet" className="w-full h-full object-cover opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+          <img src="/hero-bg.jpg" alt="Plumbing work — water from faucet" className="w-full h-full object-cover animate-ken-burns" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent"></div>
         </div>
         <div className="container mx-auto px-6 relative z-10 py-20">
           <div className="max-w-3xl">
@@ -324,18 +361,18 @@ function LandingPage() {
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl leading-relaxed">{hero.subheading}</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href={`tel:${BUSINESS.phoneRaw}`} className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 shadow-[0_0_30px_rgba(0,0,0,0.4)]">
+              <a href={`tel:${BUSINESS.phoneRaw}`} className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 shadow-[0_8_30px_rgba(30,95,159,0.35)] animate-soft-glow">
                 <PhoneCall className="w-6 h-6" />
                 {hero.cta1}
               </a>
-              <button onClick={() => scrollTo("contact")} className="flex items-center justify-center gap-3 bg-card hover:bg-card/80 border border-white/10 text-white px-8 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1">
+              <button onClick={() => scrollTo("contact")} className="flex items-center justify-center gap-3 bg-white hover:bg-card border-2 border-primary text-primary px-8 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1">
                 {hero.cta2}
               </button>
             </div>
             <div className="mt-12 flex flex-wrap items-center gap-6">
               {badges.slice(0, 3).map((badge, i) => (
                 <React.Fragment key={i}>
-                  {i > 0 && <div className="w-px h-8 bg-white/10 hidden sm:block"></div>}
+                  {i > 0 && <div className="w-px h-8 bg-white/20 hidden sm:block"></div>}
                   <div className="flex items-center gap-2 font-condensed font-bold text-lg uppercase tracking-wide">
                     <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
                       <ShieldCheck className="w-4 h-4" />
@@ -352,17 +389,21 @@ function LandingPage() {
       {/* Services */}
       <section id="services" className="py-24 relative bg-background">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <Reveal className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
               <Hammer className="w-4 h-4" /> {t.sectionExpertise}
             </h2>
             <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide">{t.sectionWhatWeDo}</h3>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
-              <div key={i} className="group bg-card border border-white/5 p-8 rounded hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col h-full relative overflow-hidden">
+              <Reveal
+                key={i}
+                delay={i * 80}
+                className="group bg-card border border-border p-8 rounded hover:border-primary/50 hover:shadow-[0_12px_40px_rgba(30,95,159,0.18)] transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col h-full relative overflow-hidden"
+              >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className="w-14 h-14 bg-background border border-white/10 rounded flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-primary">
+                <div className="w-14 h-14 bg-background border border-border rounded flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-primary">
                   <ShieldCheck className="w-8 h-8" />
                 </div>
                 <h4 className="text-2xl font-condensed font-bold uppercase tracking-wide mb-3">{service.name}</h4>
@@ -370,14 +411,14 @@ function LandingPage() {
                 <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm mt-auto">
                   {t.learnMore} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* About */}
-      <section id="about" className="py-24 bg-card relative border-y border-white/5">
+      <section id="about" className="py-24 bg-card relative border-y border-border">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
@@ -407,7 +448,7 @@ function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <a href={`tel:${BUSINESS.phoneRaw}`} className="inline-flex items-center gap-2 bg-white text-background hover:bg-white/90 px-8 py-4 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1">
+              <a href={`tel:${BUSINESS.phoneRaw}`} className="inline-flex items-center gap-2 bg-primary text-white hover:bg-primary/90 px-8 py-4 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1">
                 {t.callUsNow} <ArrowRight className="w-5 h-5" />
               </a>
             </div>
@@ -439,7 +480,7 @@ function LandingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {reviews.map((review, i) => (
-              <div key={i} className="bg-card border border-white/5 p-8 rounded hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+              <div key={i} className="bg-card border border-border p-8 rounded hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
                 <div className="flex gap-1 text-yellow-500 mb-6">
                   {[1,2,3,4,5].map(star => <Star key={star} className="w-5 h-5 fill-current" />)}
                 </div>
@@ -455,7 +496,7 @@ function LandingPage() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 bg-card border-t border-white/5">
+      <section id="contact" className="py-24 bg-card border-t border-border">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
@@ -467,59 +508,59 @@ function LandingPage() {
 
           <div className={`grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16 ${BUSINESS.email ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
             <a href={`tel:${BUSINESS.phoneRaw}`} className="group bg-primary hover:bg-primary/90 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2 shadow-[0_0_30px_rgba(0,0,0,0.3)]">
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
                 <PhoneCall className="w-8 h-8 text-white" />
               </div>
               <div className="font-condensed text-sm font-bold uppercase tracking-widest text-white/70">{t.callUs}</div>
               <div className="font-condensed text-2xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
               <div className="text-white/60 text-sm font-medium">{t.tapToCall}</div>
             </a>
-            <a href={`sms:${BUSINESS.phoneRaw}`} className="group bg-background border border-white/10 hover:border-primary/50 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
+            <a href={`sms:${BUSINESS.phoneRaw}`} className="group bg-background border border-border hover:border-primary/50 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
               <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
                 <MessageCircle className="w-8 h-8 text-primary" />
               </div>
               <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">{t.textUs}</div>
-              <div className="font-condensed text-2xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
+              <div className="font-condensed text-2xl font-black text-foreground uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
               <div className="text-muted-foreground text-sm font-medium">{t.tapToText}</div>
             </a>
-            <a href={waLink(BUSINESS.phoneRaw, t.whatsappPrefill)} target="_blank" rel="noopener noreferrer" className="group bg-background border border-white/10 hover:border-[#25D366]/60 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
+            <a href={waLink(BUSINESS.phoneRaw, t.whatsappPrefill)} target="_blank" rel="noopener noreferrer" className="group bg-background border border-border hover:border-[#25D366]/60 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
               <div className="w-16 h-16 bg-[#25D366]/20 rounded-full flex items-center justify-center">
                 <FaWhatsapp className="w-8 h-8 text-[#25D366]" />
               </div>
               <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">{t.whatsapp}</div>
-              <div className="font-condensed text-2xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
+              <div className="font-condensed text-2xl font-black text-foreground uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
               <div className="text-muted-foreground text-sm font-medium">{t.tapForWhatsapp}</div>
             </a>
             {BUSINESS.email && (
-              <a href={`mailto:${BUSINESS.email}`} className="group bg-background border border-white/10 hover:border-primary/50 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
+              <a href={`mailto:${BUSINESS.email}`} className="group bg-background border border-border hover:border-primary/50 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
                 <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
                   <Mail className="w-8 h-8 text-primary" />
                 </div>
                 <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">{t.emailUs}</div>
-                <div className="font-condensed text-lg font-black text-white tracking-wide leading-tight break-all">{BUSINESS.email}</div>
+                <div className="font-condensed text-lg font-black text-foreground tracking-wide leading-tight break-all">{BUSINESS.email}</div>
                 <div className="text-muted-foreground text-sm font-medium">{t.replyHours}</div>
               </a>
             )}
           </div>
 
-          <div className="flex flex-col md:flex-row justify-center items-center gap-10 max-w-3xl mx-auto pt-10 border-t border-white/5">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-10 max-w-3xl mx-auto pt-10 border-t border-border">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-background border border-white/10 rounded flex items-center justify-center shrink-0 text-primary">
+              <div className="w-12 h-12 bg-background border border-border rounded flex items-center justify-center shrink-0 text-primary">
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
                 <div className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-1">{t.serviceArea}</div>
-                <div className="text-white font-medium">{BUSINESS.serviceArea}</div>
+                <div className="text-foreground font-medium">{BUSINESS.serviceArea}</div>
               </div>
             </div>
-            <div className="hidden md:block w-px h-12 bg-white/10"></div>
+            <div className="hidden md:block w-px h-12 bg-border"></div>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-background border border-white/10 rounded flex items-center justify-center shrink-0 text-primary">
+              <div className="w-12 h-12 bg-background border border-border rounded flex items-center justify-center shrink-0 text-primary">
                 <Zap className="w-5 h-5" />
               </div>
               <div>
                 <div className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-1">{t.hours}</div>
-                <div className="text-white font-medium">{BUSINESS.hours}</div>
+                <div className="text-foreground font-medium">{BUSINESS.hours}</div>
               </div>
             </div>
           </div>
@@ -529,7 +570,7 @@ function LandingPage() {
       <QuoteForm />
 
       {/* Footer */}
-      <footer className="bg-background border-t border-white/10 py-12">
+      <footer className="bg-foreground text-white border-t border-border py-12">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">

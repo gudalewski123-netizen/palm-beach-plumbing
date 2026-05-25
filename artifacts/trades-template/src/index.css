@@ -83,3 +83,33 @@
     @apply font-condensed tracking-wide uppercase;
   }
 }
+
+/* Slow Ken Burns zoom — gives a static hero photo subtle "live" motion */
+@keyframes ken-burns {
+  0%   { transform: scale(1)   translate(0,    0);    }
+  50%  { transform: scale(1.12) translate(-2%, -2%); }
+  100% { transform: scale(1)   translate(0,    0);    }
+}
+.animate-ken-burns {
+  animation: ken-burns 24s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Fade-in-up used by sections as they scroll into view */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out both;
+}
+
+/* Subtle pulse glow on the primary phone CTA */
+@keyframes soft-glow {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.35); }
+  50%      { box-shadow: 0 0 0 16px hsl(var(--primary) / 0); }
+}
+.animate-soft-glow {
+  animation: soft-glow 2.4s ease-out infinite;
+}

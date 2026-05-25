@@ -110,16 +110,16 @@ export const REVIEWS = [
 // ============================================================
 
 export const THEME = {
-  primary: "210 68% 37%",      // Plumbing blue (#1E5F9F)
+  primary: "210 75% 35%",      // Plumbing blue (#1E5F9F, slightly deeper for contrast on white)
   primaryFg: "0 0% 100%",
-  background: "215 35% 8%",    // Deep navy
-  foreground: "35 30% 96%",
-  card: "215 28% 13%",
-  cardFg: "35 30% 96%",
-  accent: "210 68% 45%",       // Lighter plumbing blue
-  accentFg: "215 35% 8%",
-  mutedFg: "35 15% 70%",
-  border: "215 25% 20%",
+  background: "0 0% 100%",     // Pure white
+  foreground: "215 35% 15%",   // Deep navy text
+  card: "210 30% 97%",         // Very light blue-tinted card
+  cardFg: "215 35% 15%",
+  accent: "200 95% 50%",       // Bright accent blue
+  accentFg: "0 0% 100%",
+  mutedFg: "215 15% 45%",      // Muted gray-blue
+  border: "215 25% 88%",       // Light border
 };
 
 // ============================================================
