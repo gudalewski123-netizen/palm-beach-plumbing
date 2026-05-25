@@ -39,6 +39,59 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
     </div>
   );
 }
+
+// Auto-rotating photo gallery — crossfade carousel that gives the page
+// a "live" feel without needing video. Pauses on hover, restarts on leave.
+function GallerySection({ heading, eyebrow, photos }: { heading: string; eyebrow: string; photos: { src: string; alt: string }[] }) {
+  const [idx, setIdx] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+  React.useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % photos.length), 4500);
+    return () => clearInterval(t);
+  }, [paused, photos.length]);
+  return (
+    <section id="gallery" className="py-24 bg-card relative border-y border-border overflow-hidden">
+      <div className="container mx-auto px-6">
+        <Reveal className="text-center max-w-3xl mx-auto mb-12">
+          <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
+            <ChevronRight className="w-4 h-4" /> {eyebrow}
+          </h2>
+          <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide text-foreground">{heading}</h3>
+        </Reveal>
+        <Reveal>
+          <div
+            className="relative w-full max-w-5xl mx-auto rounded-xl overflow-hidden shadow-[0_20px_60px_rgba(30,95,159,0.20)] bg-background"
+            style={{ aspectRatio: "16 / 10" }}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {photos.map((p, i) => (
+              <img
+                key={p.src}
+                src={p.src}
+                alt={p.alt}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-in-out ${i === idx ? "opacity-100" : "opacity-0"}`}
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            ))}
+            <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              {photos.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIdx(i)}
+                  aria-label={`Photo ${i + 1}`}
+                  className={`h-2 rounded-full transition-all ${i === idx ? "w-8 bg-white" : "w-2 bg-white/60 hover:bg-white/90"}`}
+                />
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -417,13 +470,27 @@ function LandingPage() {
         </div>
       </section>
 
+      {/* Gallery — auto-rotating photo carousel */}
+      <GallerySection
+        eyebrow={lang === "es" ? "Nuestro Trabajo" : "Our Work"}
+        heading={lang === "es" ? "Plomería de Calidad, Foto Por Foto" : "Quality Plumbing, Photo by Photo"}
+        photos={[
+          { src: "/hero-bg.jpg", alt: "Faucet with water flow" },
+          { src: "https://images.unsplash.com/photo-1542013936693-884638332954?w=1600&q=80&auto=format&fit=crop", alt: "Plumbing tools and copper pipes" },
+          { src: "/services-bg.jpg", alt: "Outdoor spigot fitting" },
+          { src: "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=1600&q=80&auto=format&fit=crop", alt: "Plumber working on pipe fitting" },
+          { src: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=1600&q=80&auto=format&fit=crop", alt: "Modern bathroom fixture install" },
+          { src: "https://images.unsplash.com/photo-1585128792020-803d29415281?w=1600&q=80&auto=format&fit=crop", alt: "Clean kitchen sink plumbing" },
+        ]}
+      />
+
       {/* About */}
       <section id="about" className="py-24 bg-card relative border-y border-border">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="absolute -inset-4 border border-primary/20 rounded translate-x-4 translate-y-4"></div>
-              <img src="/team-photo.png" alt={about.teamPhotoAlt} className="w-full h-auto rounded relative z-10 hover:scale-[1.02] transition-all duration-500" />
+              <img src="/team-photo.jpg" alt={about.teamPhotoAlt} className="w-full h-auto rounded relative z-10 hover:scale-[1.02] transition-all duration-500" />
               {showYearsBadge && (
                 <div className="absolute bottom-8 -right-8 bg-primary p-6 rounded shadow-2xl z-20 hidden md:block">
                   <div className="font-condensed text-5xl font-black text-white leading-none mb-1">{BUSINESS.yearsInBusiness}+</div>
