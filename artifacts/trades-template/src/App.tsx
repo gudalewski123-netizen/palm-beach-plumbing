@@ -268,7 +268,7 @@ function LandingPage() {
       {/* Hero */}
       <section id="hero" className="relative min-h-[90vh] flex items-center pt-20">
         <div className="absolute inset-0 z-0">
-          <img src="/hero-bg.png" alt="Trades professional working" className="w-full h-full object-cover opacity-40" />
+          <img src="/hero-bg.jpg" alt="Plumbing work — water from faucet" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
         </div>
@@ -373,7 +373,7 @@ function LandingPage() {
 
       {/* CTA Banner */}
       <section className="py-20 relative overflow-hidden bg-primary">
-        <div className="absolute inset-0 bg-[url('/services-bg.png')] opacity-10 bg-center mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('/services-bg.jpg')] opacity-10 bg-center mix-blend-overlay"></div>
         <div className="container mx-auto px-6 relative z-10 text-center">
           <h2 className="text-4xl md:text-6xl font-condensed font-black uppercase tracking-wide text-white mb-6">{CTA_BANNER.headline}</h2>
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium">{CTA_BANNER.body}</p>
