@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { PhoneCall, ShieldCheck, Hammer, Menu, X, MapPin, ChevronRight, Star, ArrowRight, Zap, MessageSquare, Mail, MessageCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { Switch, Route, Router as WouterRouter, Link } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { BUSINESS, HERO, ABOUT, CTA_BANNER, BADGES, SERVICES, REVIEWS, THEME, PITCH_MODE } from "./config";
+import { BUSINESS, HERO, ABOUT, CTA_BANNER, BADGES, SERVICES, REVIEWS, THEME, PITCH_MODE, HERO_ES, ABOUT_ES, CTA_BANNER_ES, BADGES_ES, SERVICES_ES, REVIEWS_ES, UI_EN, UI_ES } from "./config";
 import biz from "../../../business.config.json";
 import AdminPage from "./pages/AdminPage";
+
+type Lang = "en" | "es";
+
+function useLang(): [Lang, (l: Lang) => void] {
+  const [lang, setLangState] = useState<Lang>(() => {
+    if (typeof window === "undefined") return "en";
+    const stored = window.localStorage.getItem("pbp-lang");
+    return stored === "es" ? "es" : "en";
+  });
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    try { window.localStorage.setItem("pbp-lang", l); } catch {}
+    document.documentElement.lang = l;
+  };
+  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+  return [lang, setLang];
+}
+
+const waLink = (phoneRaw: string, message: string) =>
+  `https://wa.me/${phoneRaw.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(message)}`;
 
 const fallbackEmail = biz.leadNotifyTo || "teddy.nk28@gmail.com";
 
@@ -207,6 +228,14 @@ function LandingPage() {
   useApplyTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [lang, setLang] = useLang();
+  const t = lang === "es" ? UI_ES : UI_EN;
+  const hero = lang === "es" ? HERO_ES : HERO;
+  const about = lang === "es" ? ABOUT_ES : ABOUT;
+  const ctaBanner = lang === "es" ? CTA_BANNER_ES : CTA_BANNER;
+  const badges = lang === "es" ? BADGES_ES : BADGES;
+  const services = lang === "es" ? SERVICES_ES : SERVICES;
+  const reviews = lang === "es" ? REVIEWS_ES : REVIEWS;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -237,9 +266,16 @@ function LandingPage() {
             </div>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <button onClick={() => scrollTo("services")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">Services</button>
-            <button onClick={() => scrollTo("about")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">About</button>
-            <button onClick={() => scrollTo("reviews")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">Reviews</button>
+            <button onClick={() => scrollTo("services")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navServices}</button>
+            <button onClick={() => scrollTo("about")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navAbout}</button>
+            <button onClick={() => scrollTo("reviews")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navReviews}</button>
+            <div className="flex items-center gap-1 border border-white/15 rounded px-1 py-1 font-condensed text-sm font-bold uppercase tracking-widest" aria-label="Language selector">
+              <button onClick={() => setLang("en")} className={`px-2 py-1 rounded transition-colors ${lang === "en" ? "bg-primary text-white" : "text-muted-foreground hover:text-white"}`} aria-pressed={lang === "en"}>EN</button>
+              <button onClick={() => setLang("es")} className={`px-2 py-1 rounded transition-colors ${lang === "es" ? "bg-primary text-white" : "text-muted-foreground hover:text-white"}`} aria-pressed={lang === "es"}>ES</button>
+            </div>
+            <a href={waLink(BUSINESS.phoneRaw, t.whatsappPrefill)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="flex items-center justify-center w-11 h-11 rounded bg-[#25D366] hover:bg-[#1ebe5d] text-white transition-all hover:-translate-y-1 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+              <FaWhatsapp className="w-6 h-6" />
+            </a>
             <a href={`tel:${BUSINESS.phoneRaw}`} className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
               <PhoneCall className="w-5 h-5" />
               {BUSINESS.phone}
@@ -254,11 +290,19 @@ function LandingPage() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl pt-24 px-6 flex flex-col gap-6 md:hidden">
-          <button onClick={() => scrollTo("services")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">Services</button>
-          <button onClick={() => scrollTo("about")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">About</button>
-          <button onClick={() => scrollTo("reviews")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">Reviews</button>
-          <button onClick={() => scrollTo("contact")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">Contact</button>
-          <a href={`tel:${BUSINESS.phoneRaw}`} className="flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold mt-4">
+          <button onClick={() => scrollTo("services")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navServices}</button>
+          <button onClick={() => scrollTo("about")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navAbout}</button>
+          <button onClick={() => scrollTo("reviews")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navReviews}</button>
+          <button onClick={() => scrollTo("contact")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-white/10 pb-4">{t.navContact}</button>
+          <div className="flex items-center gap-2 mt-2" aria-label="Language selector">
+            <button onClick={() => setLang("en")} className={`flex-1 py-3 rounded border font-condensed text-xl uppercase tracking-widest ${lang === "en" ? "bg-primary text-white border-primary" : "border-white/15 text-muted-foreground"}`} aria-pressed={lang === "en"}>English</button>
+            <button onClick={() => setLang("es")} className={`flex-1 py-3 rounded border font-condensed text-xl uppercase tracking-widest ${lang === "es" ? "bg-primary text-white border-primary" : "border-white/15 text-muted-foreground"}`} aria-pressed={lang === "es"}>Español</button>
+          </div>
+          <a href={waLink(BUSINESS.phoneRaw, t.whatsappPrefill)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-[#25D366] text-white px-6 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold mt-2">
+            <FaWhatsapp className="w-6 h-6" />
+            WhatsApp
+          </a>
+          <a href={`tel:${BUSINESS.phoneRaw}`} className="flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold">
             <PhoneCall className="w-6 h-6" />
             {BUSINESS.phone}
           </a>
@@ -275,21 +319,21 @@ function LandingPage() {
         <div className="container mx-auto px-6 relative z-10 py-20">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-condensed uppercase tracking-tight leading-[0.9] mb-6">
-              {HERO.headline1} <br/>
-              <span className="text-primary">{HERO.headline2}</span>
+              {hero.headline1} <br/>
+              <span className="text-primary">{hero.headline2}</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl leading-relaxed">{HERO.subheading}</p>
+            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl leading-relaxed">{hero.subheading}</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href={`tel:${BUSINESS.phoneRaw}`} className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 shadow-[0_0_30px_rgba(0,0,0,0.4)]">
                 <PhoneCall className="w-6 h-6" />
-                {HERO.cta1}
+                {hero.cta1}
               </a>
               <button onClick={() => scrollTo("contact")} className="flex items-center justify-center gap-3 bg-card hover:bg-card/80 border border-white/10 text-white px-8 py-4 rounded font-condensed text-2xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1">
-                {HERO.cta2}
+                {hero.cta2}
               </button>
             </div>
             <div className="mt-12 flex flex-wrap items-center gap-6">
-              {BADGES.slice(0, 3).map((badge, i) => (
+              {badges.slice(0, 3).map((badge, i) => (
                 <React.Fragment key={i}>
                   {i > 0 && <div className="w-px h-8 bg-white/10 hidden sm:block"></div>}
                   <div className="flex items-center gap-2 font-condensed font-bold text-lg uppercase tracking-wide">
@@ -310,12 +354,12 @@ function LandingPage() {
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
-              <Hammer className="w-4 h-4" /> Our Expertise
+              <Hammer className="w-4 h-4" /> {t.sectionExpertise}
             </h2>
-            <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide">What We Do Best</h3>
+            <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide">{t.sectionWhatWeDo}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service, i) => (
+            {services.map((service, i) => (
               <div key={i} className="group bg-card border border-white/5 p-8 rounded hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col h-full relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div className="w-14 h-14 bg-background border border-white/10 rounded flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-primary">
@@ -324,7 +368,7 @@ function LandingPage() {
                 <h4 className="text-2xl font-condensed font-bold uppercase tracking-wide mb-3">{service.name}</h4>
                 <p className="text-muted-foreground mb-6 flex-grow">{service.desc}</p>
                 <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm mt-auto">
-                  Learn More <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {t.learnMore} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             ))}
@@ -338,23 +382,23 @@ function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="absolute -inset-4 border border-primary/20 rounded translate-x-4 translate-y-4"></div>
-              <img src="/team-photo.png" alt={ABOUT.teamPhotoAlt} className="w-full h-auto rounded relative z-10 hover:scale-[1.02] transition-all duration-500" />
+              <img src="/team-photo.png" alt={about.teamPhotoAlt} className="w-full h-auto rounded relative z-10 hover:scale-[1.02] transition-all duration-500" />
               {showYearsBadge && (
                 <div className="absolute bottom-8 -right-8 bg-primary p-6 rounded shadow-2xl z-20 hidden md:block">
                   <div className="font-condensed text-5xl font-black text-white leading-none mb-1">{BUSINESS.yearsInBusiness}+</div>
-                  <div className="text-white/80 font-bold uppercase tracking-wider text-sm">Years Experience</div>
+                  <div className="text-white/80 font-bold uppercase tracking-wider text-sm">{t.yearsExperience}</div>
                 </div>
               )}
             </div>
             <div>
               <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4" /> About Us
+                <ShieldCheck className="w-4 h-4" /> {t.sectionAboutEyebrow}
               </h2>
-              <h3 className="text-4xl md:text-6xl font-condensed font-bold uppercase tracking-wide mb-6 leading-tight">{ABOUT.headline}</h3>
-              <p className="text-muted-foreground text-lg mb-6 leading-relaxed">{ABOUT.body1}</p>
-              <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{ABOUT.body2}</p>
+              <h3 className="text-4xl md:text-6xl font-condensed font-bold uppercase tracking-wide mb-6 leading-tight">{about.headline}</h3>
+              <p className="text-muted-foreground text-lg mb-6 leading-relaxed">{about.body1}</p>
+              <p className="text-muted-foreground text-lg mb-10 leading-relaxed">{about.body2}</p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                {BADGES.map((item, i) => (
+                {badges.map((item, i) => (
                   <li key={i} className="flex items-center gap-3 font-bold">
                     <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary">
                       <ShieldCheck className="w-4 h-4" />
@@ -364,7 +408,7 @@ function LandingPage() {
                 ))}
               </ul>
               <a href={`tel:${BUSINESS.phoneRaw}`} className="inline-flex items-center gap-2 bg-white text-background hover:bg-white/90 px-8 py-4 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1">
-                Call Us Now <ArrowRight className="w-5 h-5" />
+                {t.callUsNow} <ArrowRight className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -375,8 +419,8 @@ function LandingPage() {
       <section className="py-20 relative overflow-hidden bg-primary">
         <div className="absolute inset-0 bg-[url('/services-bg.jpg')] opacity-10 bg-center mix-blend-overlay"></div>
         <div className="container mx-auto px-6 relative z-10 text-center">
-          <h2 className="text-4xl md:text-6xl font-condensed font-black uppercase tracking-wide text-white mb-6">{CTA_BANNER.headline}</h2>
-          <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium">{CTA_BANNER.body}</p>
+          <h2 className="text-4xl md:text-6xl font-condensed font-black uppercase tracking-wide text-white mb-6">{ctaBanner.headline}</h2>
+          <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium">{ctaBanner.body}</p>
           <a href={`tel:${BUSINESS.phoneRaw}`} className="inline-flex items-center justify-center gap-3 bg-background hover:bg-background/90 text-white px-10 py-5 rounded font-condensed text-3xl uppercase tracking-wider font-black transition-all hover:scale-105 shadow-2xl">
             <PhoneCall className="w-8 h-8 text-primary" />
             {BUSINESS.phone}
@@ -389,12 +433,12 @@ function LandingPage() {
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
-              <Star className="w-4 h-4" /> Client Testimonials
+              <Star className="w-4 h-4" /> {t.sectionTestimonials}
             </h2>
-            <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide">Don't Just Take Our Word For It</h3>
+            <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide">{t.sectionTestimonialsSub}</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {REVIEWS.map((review, i) => (
+            {reviews.map((review, i) => (
               <div key={i} className="bg-card border border-white/5 p-8 rounded hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
                 <div className="flex gap-1 text-yellow-500 mb-6">
                   {[1,2,3,4,5].map(star => <Star key={star} className="w-5 h-5 fill-current" />)}
@@ -415,37 +459,45 @@ function LandingPage() {
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
-              <PhoneCall className="w-4 h-4" /> Get In Touch
+              <PhoneCall className="w-4 h-4" /> {t.sectionGetInTouch}
             </h2>
-            <h3 className="text-4xl md:text-6xl font-condensed font-bold uppercase tracking-wide mb-4">Ready to Help, Right Now</h3>
-            <p className="text-muted-foreground text-lg">Call or text us — {BUSINESS.hours.toLowerCase()}.</p>
+            <h3 className="text-4xl md:text-6xl font-condensed font-bold uppercase tracking-wide mb-4">{t.sectionReadyToHelp}</h3>
+            <p className="text-muted-foreground text-lg">{t.callOrText} — {BUSINESS.hours.toLowerCase()}.</p>
           </div>
 
-          <div className={`grid grid-cols-1 gap-6 max-w-3xl mx-auto mb-16 ${BUSINESS.email ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16 ${BUSINESS.email ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
             <a href={`tel:${BUSINESS.phoneRaw}`} className="group bg-primary hover:bg-primary/90 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2 shadow-[0_0_30px_rgba(0,0,0,0.3)]">
               <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
                 <PhoneCall className="w-8 h-8 text-white" />
               </div>
-              <div className="font-condensed text-sm font-bold uppercase tracking-widest text-white/70">Call Us</div>
-              <div className="font-condensed text-3xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
-              <div className="text-white/60 text-sm font-medium">Tap to call instantly</div>
+              <div className="font-condensed text-sm font-bold uppercase tracking-widest text-white/70">{t.callUs}</div>
+              <div className="font-condensed text-2xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
+              <div className="text-white/60 text-sm font-medium">{t.tapToCall}</div>
             </a>
             <a href={`sms:${BUSINESS.phoneRaw}`} className="group bg-background border border-white/10 hover:border-primary/50 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
               <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
                 <MessageCircle className="w-8 h-8 text-primary" />
               </div>
-              <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">Text Us</div>
-              <div className="font-condensed text-3xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
-              <div className="text-muted-foreground text-sm font-medium">Tap to open messages</div>
+              <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">{t.textUs}</div>
+              <div className="font-condensed text-2xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
+              <div className="text-muted-foreground text-sm font-medium">{t.tapToText}</div>
+            </a>
+            <a href={waLink(BUSINESS.phoneRaw, t.whatsappPrefill)} target="_blank" rel="noopener noreferrer" className="group bg-background border border-white/10 hover:border-[#25D366]/60 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
+              <div className="w-16 h-16 bg-[#25D366]/20 rounded-full flex items-center justify-center">
+                <FaWhatsapp className="w-8 h-8 text-[#25D366]" />
+              </div>
+              <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">{t.whatsapp}</div>
+              <div className="font-condensed text-2xl font-black text-white uppercase tracking-wide leading-tight">{BUSINESS.phone}</div>
+              <div className="text-muted-foreground text-sm font-medium">{t.tapForWhatsapp}</div>
             </a>
             {BUSINESS.email && (
               <a href={`mailto:${BUSINESS.email}`} className="group bg-background border border-white/10 hover:border-primary/50 p-8 rounded flex flex-col items-center text-center gap-4 transition-all hover:-translate-y-2">
                 <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
                   <Mail className="w-8 h-8 text-primary" />
                 </div>
-                <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">Email Us</div>
-                <div className="font-condensed text-xl font-black text-white tracking-wide leading-tight break-all">{BUSINESS.email}</div>
-                <div className="text-muted-foreground text-sm font-medium">We reply within hours</div>
+                <div className="font-condensed text-sm font-bold uppercase tracking-widest text-muted-foreground">{t.emailUs}</div>
+                <div className="font-condensed text-lg font-black text-white tracking-wide leading-tight break-all">{BUSINESS.email}</div>
+                <div className="text-muted-foreground text-sm font-medium">{t.replyHours}</div>
               </a>
             )}
           </div>
@@ -456,7 +508,7 @@ function LandingPage() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-1">Service Area</div>
+                <div className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-1">{t.serviceArea}</div>
                 <div className="text-white font-medium">{BUSINESS.serviceArea}</div>
               </div>
             </div>
@@ -466,7 +518,7 @@ function LandingPage() {
                 <Zap className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-1">Hours</div>
+                <div className="text-xs text-muted-foreground font-bold uppercase tracking-wider mb-1">{t.hours}</div>
                 <div className="text-white font-medium">{BUSINESS.hours}</div>
               </div>
             </div>
@@ -487,12 +539,12 @@ function LandingPage() {
               <span className="font-condensed text-2xl font-bold uppercase tracking-wider">{BUSINESS.shortName}</span>
             </div>
             <div className="text-muted-foreground text-sm font-medium">
-              &copy; {new Date().getFullYear()} {BUSINESS.name}. All rights reserved.
+              &copy; {new Date().getFullYear()} {BUSINESS.name}. {t.allRightsReserved}.
             </div>
             <div className="flex gap-6 text-sm font-bold uppercase tracking-wider text-muted-foreground">
-              <span className="hover:text-white cursor-pointer transition-colors">Privacy</span>
-              <span className="hover:text-white cursor-pointer transition-colors">Terms</span>
-              <Link href="/admin" className="hover:text-white cursor-pointer transition-colors">Admin</Link>
+              <span className="hover:text-white cursor-pointer transition-colors">{t.privacy}</span>
+              <span className="hover:text-white cursor-pointer transition-colors">{t.terms}</span>
+              <Link href="/admin" className="hover:text-white cursor-pointer transition-colors">{t.admin}</Link>
             </div>
           </div>
         </div>

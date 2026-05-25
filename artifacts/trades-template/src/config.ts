@@ -131,3 +131,148 @@ export const THEME = {
 // ============================================================
 
 export const PITCH_MODE = true;
+
+// ============================================================
+//  I18N — Spanish translations
+//  EN strings above are the source of truth; ES mirrors them.
+//  Language toggle in the header flips between the two at runtime.
+// ============================================================
+
+export const HERO_ES = {
+  headline1: "Plomería Confiable",
+  headline2: "Hecha Bien la Primera Vez",
+  subheading: "Plomeros con licencia y seguro al servicio de Lake Worth y todo el área de Palm Beach. Respuesta rápida, precios honestos, trabajo de calidad.",
+  cta1: "Llame al (561) 685-5153",
+  cta2: "Cotización Gratis",
+};
+
+export const ABOUT_ES = {
+  headline: "Sus Plomeros Locales de Palm Beach",
+  body1: "Palm Beach Plumbing Contractor Inc es una empresa familiar, totalmente licenciada, orgullosa de servir a Lake Worth Beach y todo el condado de Palm Beach. Desde pequeñas fugas hasta repipes completos, tratamos cada trabajo como si fuera en nuestra propia casa.",
+  body2: "Llegamos cuando decimos que llegaremos, le damos un precio claro por adelantado, y respaldamos nuestro trabajo con la garantía que esperaría de un contratista que planea ser su plomero por muchos años.",
+  teamPhotoAlt: "Equipo de Palm Beach Plumbing en Lake Worth",
+};
+
+export const CTA_BANNER_ES = {
+  headline: "¿Necesita un Plomero Ahora?",
+  body: "Tubería rota, fuga en losa, drenaje tapado, sin agua caliente — llámenos y llegaremos rápido. Servicio de emergencia 24/7 en todo el condado de Palm Beach.",
+};
+
+export const BADGES_ES = [
+  "Lic. #CFC1429294",
+  "Comercial y Residencial",
+  "Se Habla Español",
+  "Emergencias 24/7",
+];
+
+export const SERVICES_ES = [
+  {
+    name: "Limpieza de Drenajes",
+    desc: "Drenajes lentos, fregaderos tapados, regaderas obstruidas y bloqueos en líneas principales despejados rápido con equipo profesional.",
+  },
+  {
+    name: "Hidro-Jetting",
+    desc: "Hidro-jetting de alta presión elimina grasa, sarro y raíces de árboles en líneas de drenaje y alcantarillado — restaura el flujo sin excavar.",
+  },
+  {
+    name: "Inspección con Cámara",
+    desc: "Localice bloqueos, tuberías rotas e invasión de raíces con inspección de cámara de alta definición. Sepa exactamente qué pasa antes de excavar.",
+  },
+  {
+    name: "Plomería de Obra Nueva",
+    desc: "Instalación completa de plomería para construcciones residenciales y comerciales nuevas. Con permisos, inspeccionada, y construida al código del sur de Florida.",
+  },
+  {
+    name: "Renovaciones y Remodelaciones",
+    desc: "Remodelaciones de cocinas y baños, ampliaciones, y repipes completos. Trabajamos limpio con su contratista o propietario para mantener el proyecto al día.",
+  },
+  {
+    name: "Plomería Comercial",
+    desc: "Restaurantes, oficinas, comercios y propiedades multifamiliares. Mantenimiento preventivo, respuesta de emergencia, y reparaciones según código.",
+  },
+];
+
+export const REVIEWS_ES = [
+  {
+    text: "Llamé a Palm Beach Plumbing un domingo por la mañana cuando nuestro calentador de agua falló. El técnico llegó a la casa en dos horas, lo tuvimos funcionando para la hora del almuerzo. Precio justo, sin ventas adicionales. Muy recomendado.",
+    author: "Jennifer K.",
+    source: "Reseña de Google",
+  },
+  {
+    text: "Estos muchachos repiparon nuestra casa de los años 60 en Lake Worth de principio a fin. El equipo fue profesional, mantuvieron el sitio limpio, y terminaron un día antes de lo programado. La casa pasó la inspección sin problemas.",
+    author: "Mark D.",
+    source: "Reseña de Google",
+  },
+  {
+    text: "Tuve una fuga en la losa bajo la cocina y temía la llamada. La encontraron sin romper todo el piso, la arreglaron el mismo día, y el precio fue exactamente lo que cotizaron. Empresa de confianza.",
+    author: "Sandra P.",
+    source: "Reseña de Google",
+  },
+];
+
+// UI labels (everything outside the config sections above)
+export const UI_ES = {
+  navServices: "Servicios",
+  navAbout: "Nosotros",
+  navReviews: "Reseñas",
+  navContact: "Contacto",
+  sectionExpertise: "Nuestra Experiencia",
+  sectionWhatWeDo: "Lo Que Hacemos Mejor",
+  sectionAboutEyebrow: "Acerca de Nosotros",
+  sectionTestimonials: "Testimonios",
+  sectionTestimonialsSub: "No Solo Lo Diga Por Nosotros",
+  sectionGetInTouch: "Contáctenos",
+  sectionReadyToHelp: "Listos para Ayudar, Ahora Mismo",
+  callOrText: "Llame o envíe un mensaje",
+  callUs: "Llámenos",
+  textUs: "Mensaje de Texto",
+  whatsapp: "WhatsApp",
+  emailUs: "Correo Electrónico",
+  tapToCall: "Toque para llamar",
+  tapToText: "Toque para enviar mensaje",
+  tapForWhatsapp: "Toque para abrir WhatsApp",
+  replyHours: "Respondemos en horas",
+  serviceArea: "Área de Servicio",
+  hours: "Horario",
+  callUsNow: "Llámenos Ahora",
+  learnMore: "Más Información",
+  yearsExperience: "Años de Experiencia",
+  privacy: "Privacidad",
+  terms: "Términos",
+  admin: "Admin",
+  allRightsReserved: "Todos los derechos reservados",
+  whatsappPrefill: "Hola, me gustaría una cotización de plomería.",
+};
+
+export const UI_EN = {
+  navServices: "Services",
+  navAbout: "About",
+  navReviews: "Reviews",
+  navContact: "Contact",
+  sectionExpertise: "Our Expertise",
+  sectionWhatWeDo: "What We Do Best",
+  sectionAboutEyebrow: "About Us",
+  sectionTestimonials: "Client Testimonials",
+  sectionTestimonialsSub: "Don't Just Take Our Word For It",
+  sectionGetInTouch: "Get In Touch",
+  sectionReadyToHelp: "Ready to Help, Right Now",
+  callOrText: "Call or text us",
+  callUs: "Call Us",
+  textUs: "Text Us",
+  whatsapp: "WhatsApp",
+  emailUs: "Email Us",
+  tapToCall: "Tap to call instantly",
+  tapToText: "Tap to open messages",
+  tapForWhatsapp: "Tap to open WhatsApp",
+  replyHours: "We reply within hours",
+  serviceArea: "Service Area",
+  hours: "Hours",
+  callUsNow: "Call Us Now",
+  learnMore: "Learn More",
+  yearsExperience: "Years Experience",
+  privacy: "Privacy",
+  terms: "Terms",
+  admin: "Admin",
+  allRightsReserved: "All rights reserved",
+  whatsappPrefill: "Hi, I'd like a plumbing quote.",
+};
