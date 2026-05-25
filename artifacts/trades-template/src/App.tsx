@@ -347,7 +347,7 @@ function LandingPage() {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border py-4 shadow-2xl" : "bg-transparent py-6"}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollTo("hero")}>
-            <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className={`${isScrolled ? "h-14" : "h-20"} w-auto transition-all drop-shadow-sm`} />
+            <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className={`${isScrolled ? "h-10 md:h-14" : "h-12 md:h-20"} w-auto transition-all drop-shadow-sm`} />
             <div className="hidden lg:block border-l border-border pl-3">
               <div className="font-condensed text-primary text-xs font-bold tracking-widest uppercase leading-tight">{BUSINESS.location}</div>
               <div className="font-condensed text-muted-foreground text-xs font-medium tracking-wider uppercase leading-tight">Lic. #CFC1429294</div>
@@ -401,8 +401,8 @@ function LandingPage() {
       <section id="hero" className="relative min-h-[90vh] flex items-center pt-20">
         <div className="absolute inset-0 z-0">
           <img src="/hero-bg.jpg" alt="Plumbing work — water from faucet" className="w-full h-full object-cover animate-ken-burns" />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/30"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 md:via-white/75 to-white/30 md:to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-white/10"></div>
         </div>
         <div className="container mx-auto px-6 relative z-10 py-20">
           <div className="max-w-3xl">
@@ -439,23 +439,23 @@ function LandingPage() {
 
       {/* Stats strip — anchors trust right under the hero */}
       <section className="relative -mt-px bg-primary text-white">
-        <div className="container mx-auto px-6 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/15">
-            <Reveal className="text-center px-4">
-              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">{BUSINESS.yearsInBusiness}+</div>
-              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{t.yearsExperience}</div>
+        <div className="container mx-auto px-6 py-8 md:py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 md:divide-x md:divide-white/15">
+            <Reveal className="text-center md:px-4">
+              <div className="font-condensed text-4xl md:text-6xl font-black tracking-tight leading-none">{BUSINESS.yearsInBusiness}+</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-[10px] md:text-xs mt-2">{t.yearsExperience}</div>
             </Reveal>
-            <Reveal delay={80} className="text-center px-4">
-              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">24/7</div>
-              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{lang === "es" ? "Emergencias" : "Emergency Service"}</div>
+            <Reveal delay={80} className="text-center md:px-4">
+              <div className="font-condensed text-4xl md:text-6xl font-black tracking-tight leading-none">24/7</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-[10px] md:text-xs mt-2">{lang === "es" ? "Emergencias" : "Emergency Service"}</div>
             </Reveal>
-            <Reveal delay={160} className="text-center px-4">
-              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">2</div>
-              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{lang === "es" ? "Idiomas (EN/ES)" : "Languages Spoken"}</div>
+            <Reveal delay={160} className="text-center md:px-4">
+              <div className="font-condensed text-4xl md:text-6xl font-black tracking-tight leading-none">2</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-[10px] md:text-xs mt-2">{lang === "es" ? "Idiomas (EN/ES)" : "Languages Spoken"}</div>
             </Reveal>
-            <Reveal delay={240} className="text-center px-4">
-              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">100%</div>
-              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{lang === "es" ? "Licenciados y Asegurados" : "Licensed & Insured"}</div>
+            <Reveal delay={240} className="text-center md:px-4">
+              <div className="font-condensed text-4xl md:text-6xl font-black tracking-tight leading-none">100%</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-[10px] md:text-xs mt-2">{lang === "es" ? "Licenciados y Asegurados" : "Licensed & Insured"}</div>
             </Reveal>
           </div>
         </div>
@@ -538,7 +538,7 @@ function LandingPage() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="absolute -inset-4 border border-primary/20 rounded translate-x-4 translate-y-4"></div>
+              <div className="hidden md:block absolute -inset-4 border border-primary/20 rounded translate-x-4 translate-y-4 pointer-events-none"></div>
               <img src="/team-photo.jpg" alt={about.teamPhotoAlt} className="w-full h-auto rounded relative z-10 hover:scale-[1.02] transition-all duration-500" />
               {showYearsBadge && (
                 <div className="absolute bottom-8 -right-8 bg-primary p-6 rounded shadow-2xl z-20 hidden md:block">
