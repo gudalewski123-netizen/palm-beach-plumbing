@@ -475,9 +475,9 @@ function LandingPage() {
         eyebrow={lang === "es" ? "Nuestro Trabajo" : "Our Work"}
         heading={lang === "es" ? "Plomería de Calidad, Foto Por Foto" : "Quality Plumbing, Photo by Photo"}
         photos={[
+          { src: "/van.jpg", alt: "Palm Beach Plumbing Contractor service van — Lic. #CFC1429294" },
           { src: "/hero-bg.jpg", alt: "Faucet with running water" },
           { src: "/services-bg.jpg", alt: "Brass spigot fitting under pressure" },
-          { src: "/team-photo.jpg", alt: "Plumber working on a copper line" },
         ]}
       />
 
