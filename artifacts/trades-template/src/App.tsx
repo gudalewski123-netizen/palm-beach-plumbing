@@ -346,13 +346,11 @@ function LandingPage() {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border py-4 shadow-2xl" : "bg-transparent py-6"}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo("hero")}>
-            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
-              <Hammer className="text-white w-6 h-6" />
-            </div>
-            <div>
-              <div className="font-condensed text-2xl font-bold leading-none tracking-wider text-foreground uppercase">{BUSINESS.shortName}</div>
-              <div className="font-condensed text-primary text-sm font-bold tracking-widest uppercase leading-none">{BUSINESS.trade} · {BUSINESS.location}</div>
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollTo("hero")}>
+            <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className={`${isScrolled ? "h-14" : "h-20"} w-auto transition-all drop-shadow-sm`} />
+            <div className="hidden lg:block border-l border-border pl-3">
+              <div className="font-condensed text-primary text-xs font-bold tracking-widest uppercase leading-tight">{BUSINESS.location}</div>
+              <div className="font-condensed text-muted-foreground text-xs font-medium tracking-wider uppercase leading-tight">Lic. #CFC1429294</div>
             </div>
           </div>
           <div className="hidden md:flex items-center gap-8">
@@ -637,11 +635,8 @@ function LandingPage() {
       <footer className="bg-foreground text-white border-t border-border py-12">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
-                <Hammer className="text-white w-4 h-4" />
-              </div>
-              <span className="font-condensed text-2xl font-bold uppercase tracking-wider">{BUSINESS.shortName}</span>
+            <div className="flex items-center gap-3">
+              <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className="h-12 w-auto bg-white rounded px-2 py-1" />
             </div>
             <div className="text-muted-foreground text-sm font-medium">
               &copy; {new Date().getFullYear()} {BUSINESS.name}. {t.allRightsReserved}.
