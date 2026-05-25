@@ -17,7 +17,7 @@ export const BUSINESS = {
 
   hours: "Mon–Fri 8:00 AM – 5:00 PM · 24/7 Emergency Service",
 
-  yearsInBusiness: "Serving South Florida since 2015",
+  yearsInBusiness: "11",
 
   // Trade type — must match a key in placeholders.ts (or "default").
   // Lowercase, hyphen-separated. Examples: "softwash", "roofing", "lawn-care",

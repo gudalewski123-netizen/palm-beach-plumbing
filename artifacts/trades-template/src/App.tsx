@@ -437,6 +437,30 @@ function LandingPage() {
         </div>
       </section>
 
+      {/* Stats strip — anchors trust right under the hero */}
+      <section className="relative -mt-px bg-primary text-white">
+        <div className="container mx-auto px-6 py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/15">
+            <Reveal className="text-center px-4">
+              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">{BUSINESS.yearsInBusiness}+</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{t.yearsExperience}</div>
+            </Reveal>
+            <Reveal delay={80} className="text-center px-4">
+              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">24/7</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{lang === "es" ? "Emergencias" : "Emergency Service"}</div>
+            </Reveal>
+            <Reveal delay={160} className="text-center px-4">
+              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">2</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{lang === "es" ? "Idiomas (EN/ES)" : "Languages Spoken"}</div>
+            </Reveal>
+            <Reveal delay={240} className="text-center px-4">
+              <div className="font-condensed text-5xl md:text-6xl font-black tracking-tight">100%</div>
+              <div className="text-white/80 font-bold uppercase tracking-widest text-xs mt-2">{lang === "es" ? "Licenciados y Asegurados" : "Licensed & Insured"}</div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* Services */}
       <section id="services" className="py-24 relative bg-background">
         <div className="container mx-auto px-6">
@@ -462,6 +486,36 @@ function LandingPage() {
                 <div className="flex items-center gap-2 text-primary font-bold uppercase tracking-wider text-sm mt-auto">
                   {t.learnMore} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us — trust-building feature grid */}
+      <section id="why" className="py-24 bg-card border-y border-border relative overflow-hidden">
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-accent/10 blur-3xl pointer-events-none"></div>
+        <div className="container mx-auto px-6 relative">
+          <Reveal className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
+              <ShieldCheck className="w-4 h-4" /> {lang === "es" ? "Por Qué Elegirnos" : "Why Choose Us"}
+            </h2>
+            <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide text-foreground">{lang === "es" ? "La Diferencia Palm Beach" : "The Palm Beach Difference"}</h3>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: Zap, title: lang === "es" ? "Respuesta Rápida" : "Fast Response", body: lang === "es" ? "Llegamos cuando decimos. Emergencias 24/7 en todo el condado de Palm Beach." : "We show up when we say we will. 24/7 emergency dispatch across Palm Beach County." },
+              { icon: ShieldCheck, title: lang === "es" ? "Licencia Florida" : "FL State Licensed", body: lang === "es" ? "Lic. #CFC1429294. Contratista certificado de plomería del estado de Florida — totalmente asegurado." : "Lic. #CFC1429294. Florida-certified plumbing contractor, fully insured for your protection." },
+              { icon: MessageCircle, title: lang === "es" ? "Se Habla Español" : "Bilingual Team", body: lang === "es" ? "Nuestro equipo lo atiende en inglés o español, con respeto y claridad." : "Our crew serves you in English or Spanish — clear communication, no surprises." },
+              { icon: Hammer, title: lang === "es" ? "Trabajo Garantizado" : "Workmanship Guaranteed", body: lang === "es" ? "Respaldamos cada trabajo con la garantía que esperaría de un plomero familiar." : "We back every job with the warranty you'd expect from a family-run plumber." },
+            ].map((f, i) => (
+              <Reveal key={i} delay={i * 80} className="bg-background border border-border rounded-xl p-6 hover:border-primary/50 hover:shadow-[0_12px_40px_rgba(30,95,159,0.18)] hover:-translate-y-1 transition-all">
+                <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center mb-4 shadow-[0_6px_20px_rgba(30,95,159,0.4)]">
+                  <f.icon className="w-6 h-6" />
+                </div>
+                <h4 className="font-condensed font-bold uppercase tracking-wide text-xl mb-2 text-foreground">{f.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{f.body}</p>
               </Reveal>
             ))}
           </div>
