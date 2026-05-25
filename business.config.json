@@ -1,11 +1,11 @@
 {
-  "businessName": "[Business Name]",
-  "tagline": "[One-line tagline]",
-  "email": "[client@example.com]",
-  "phone": "[(555) 555-5555]",
-  "address": "[123 Main St, City, ST 12345]",
-  "tradeType": "general",
+  "businessName": "Palm Beach Plumbing Contractor Inc",
+  "tagline": "Trusted plumbing for Lake Worth and the greater Palm Beach area",
+  "email": "palmbeachplumbing@yahoo.com",
+  "phone": "(561) 685-5153",
+  "address": "1107 N A St, Lake Worth Beach, FL 33460",
+  "tradeType": "plumbing",
   "domain": "",
-  "primaryColor": "#000000",
-  "leadNotifyTo": "teddy.nk28@gmail.com"
+  "primaryColor": "#1E5F9F",
+  "leadNotifyTo": "palmbeachplumbing@yahoo.com"
 }

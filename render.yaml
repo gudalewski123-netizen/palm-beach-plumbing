@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: api-server
+    name: palm-beach-plumbing-api
     runtime: node
     plan: free
     region: oregon
@@ -16,7 +16,7 @@ services:
       - key: ALLOWED_ORIGINS
         sync: false
       - key: LEAD_NOTIFY_TO
-        value: teddy.nk28@gmail.com
+        value: palmbeachplumbing@yahoo.com
       - key: JWT_SECRET
         generateValue: true
       - key: SESSION_SECRET

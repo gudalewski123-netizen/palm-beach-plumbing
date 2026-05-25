@@ -4,97 +4,99 @@
 // ============================================================
 
 export const BUSINESS = {
-  name: "[Client Business Name]",
-  shortName: "[Client Name]",
-  trade: "[Trade Type]",
-  location: "[City, State]",
-  serviceArea: "[Primary Service Area]",
+  name: "Palm Beach Plumbing Contractor Inc",
+  shortName: "Palm Beach Plumbing",
+  trade: "Plumbing",
+  location: "Lake Worth Beach, FL",
+  serviceArea: "Palm Beach County and surrounding areas",
 
-  phone: "(555) 555-5555",
-  phoneRaw: "+15555555555",
+  phone: "(561) 685-5153",
+  phoneRaw: "+15616855153",
 
-  email: "",
+  email: "palmbeachplumbing@yahoo.com",
 
-  hours: "[Business Hours]",
+  hours: "Mon–Fri 8:00 AM – 5:00 PM · 24/7 Emergency Service",
 
-  yearsInBusiness: "",
+  yearsInBusiness: "Serving South Florida since 2015",
 
   // Trade type — must match a key in placeholders.ts (or "default").
   // Lowercase, hyphen-separated. Examples: "softwash", "roofing", "lawn-care",
   // "fencing", "auto-detailing", "junk-removal", "hvac", "plumbing",
   // "electrical", "painting", "tree-services", "cleaning".
   // Used to pick trade-appropriate placeholder photos until the client sends real ones.
-  tradeType: "default",
+  tradeType: "plumbing",
 };
 
 export const HERO = {
-  headline1: "[Headline Part 1]",
-  headline2: "[Headline Part 2]",
-  subheading: "[Subheading describing what the business does and where.]",
-  cta1: "Call [phone]",
+  headline1: "Reliable Plumbing",
+  headline2: "Done Right the First Time",
+  subheading: "Licensed and insured plumbing contractors serving Lake Worth and the greater Palm Beach area. Fast response, honest pricing, quality workmanship.",
+  cta1: "Call (561) 685-5153",
   cta2: "Get a Free Quote",
 };
 
 export const ABOUT = {
-  headline: "[About headline]",
-  body1: "[First paragraph about the business.]",
-  body2: "[Second paragraph — story, values, or differentiator.]",
-  teamPhotoAlt: "[Alt text for team photo]",
+  headline: "Your Local Palm Beach Plumbers",
+  body1: "Palm Beach Plumbing Contractor Inc is a family-owned, fully licensed plumbing company proudly serving Lake Worth Beach and all of Palm Beach County. From small leaks to full repipes, we treat every job like it's in our own home.",
+  body2: "We show up when we say we will, give you a clear price up front, and back our work with the kind of warranty you'd expect from a contractor who plans to be your plumber for years to come.",
+  teamPhotoAlt: "Palm Beach Plumbing team in Lake Worth",
 };
 
 export const CTA_BANNER = {
-  headline: "[CTA headline]",
-  body: "[CTA body copy — what to do and why now.]",
+  headline: "Need a Plumber Now?",
+  body: "Burst pipe, slab leak, clogged main, no hot water — call us and we'll be there fast. 24/7 emergency service across Palm Beach County.",
 };
 
 export const BADGES = [
   "Licensed & Insured",
   "Free Estimates",
-  "Available 24/7",
+  "24/7 Emergency Service",
   "Upfront Pricing",
 ];
 
 export const SERVICES = [
   {
-    name: "Fence Installation",
-    desc: "New fence installations for residential and commercial properties. We work with wood, vinyl, chain link, aluminum, and more — built to last in Florida's climate.",
+    name: "Emergency Plumbing",
+    desc: "Burst pipes, overflowing toilets, no hot water, sewer backups — we answer the phone day or night and dispatch a licensed plumber fast.",
   },
   {
-    name: "Fence Repair",
-    desc: "Damaged, leaning, or rotting fence? We fix it fast. From broken posts and rails to full panel replacements, we restore your fence to like-new condition.",
+    name: "Drain Cleaning",
+    desc: "Slow drains, clogged kitchen sinks, backed-up showers, and main line stoppages cleared with professional cabling and hydro jetting.",
   },
   {
-    name: "Wood Fencing",
-    desc: "Beautiful custom wood fences that add privacy and curb appeal. We use quality treated lumber and expert craftsmanship for a fence that looks great for years.",
+    name: "Water Heater Repair & Installation",
+    desc: "Tank and tankless water heater repair, replacement, and new installations. All major brands serviced — gas and electric.",
   },
   {
-    name: "Vinyl & PVC Fencing",
-    desc: "Low-maintenance vinyl fences in a variety of styles and colors. Durable, weather-resistant, and perfect for South Florida's heat and humidity.",
+    name: "Leak Detection & Repair",
+    desc: "Slab leaks, pinhole leaks, hidden pipe leaks behind walls — we find the source without tearing up your home and repair it right.",
   },
   {
-    name: "Chain Link Fencing",
-    desc: "Affordable and durable chain link fences for residential, commercial, and security applications. Quick installation with long-lasting results.",
+    name: "Repipes & Pipe Replacement",
+    desc: "Full-home repipes for older Florida homes with failing galvanized or polybutylene plumbing. Copper and PEX options, permitted and inspected.",
   },
   {
-    name: "Gate Installation & Repair",
-    desc: "We install and repair manual and automatic gates for driveways and entrances. Secure, smooth operation — done right the first time.",
+    name: "Toilets, Faucets & Fixtures",
+    desc: "Repair or replace toilets, faucets, garbage disposals, shower valves, and water-saving fixtures. Quality parts, clean installs.",
   },
 ];
 
+// NOTE: Reviews below are placeholder examples for the pitch preview only.
+// Replace with real Google / Facebook / BBB reviews before going live.
 export const REVIEWS = [
   {
-    text: "Macias Multy Services did an amazing job replacing our old wooden fence. They were on time, professional, and the finished product looks incredible. Definitely recommend them to anyone in Miami.",
-    author: "Roberto G.",
+    text: "Called Palm Beach Plumbing on a Sunday morning when our water heater went out. Tech was at the house within two hours, had us up and running by lunchtime. Fair price, no upsell. Highly recommend.",
+    author: "Jennifer K.",
     source: "Google Review",
   },
   {
-    text: "Called them for an emergency fence repair after a storm knocked part of it down. They came out the same day and had it fixed quickly. Great price and great service — 5 stars all the way.",
-    author: "Maria S.",
+    text: "These guys repiped our 1960s Lake Worth bungalow start to finish. Crew was professional, kept the job site clean, and finished a day ahead of schedule. House passes inspection with no issues.",
+    author: "Mark D.",
     source: "Google Review",
   },
   {
-    text: "Had them install a full vinyl privacy fence around our backyard. The crew was clean, respectful, and finished ahead of schedule. Our neighbors already asked for their number!",
-    author: "James T.",
+    text: "Had a slab leak under the kitchen and was dreading the call. They found it with no jackhammering all over the floor, fixed it the same day, and the price was exactly what they quoted. Trustworthy company.",
+    author: "Sandra P.",
     source: "Google Review",
   },
 ];
@@ -108,13 +110,13 @@ export const REVIEWS = [
 // ============================================================
 
 export const THEME = {
-  primary: "142 71% 30%",      // Tier 1 dark green
+  primary: "210 68% 37%",      // Plumbing blue (#1E5F9F)
   primaryFg: "0 0% 100%",
   background: "215 35% 8%",    // Deep navy
   foreground: "35 30% 96%",
   card: "215 28% 13%",
   cardFg: "35 30% 96%",
-  accent: "142 71% 25%",       // Tier 1 dark green marker
+  accent: "210 68% 45%",       // Lighter plumbing blue
   accentFg: "215 35% 8%",
   mutedFg: "35 15% 70%",
   border: "215 25% 20%",
@@ -128,4 +130,4 @@ export const THEME = {
 //  Flip to `false` when the backend is live.
 // ============================================================
 
-export const PITCH_MODE = false;
+export const PITCH_MODE = true;
