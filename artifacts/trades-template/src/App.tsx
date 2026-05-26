@@ -353,7 +353,7 @@ function LandingPage() {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border py-4 shadow-2xl" : "bg-transparent py-6"}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollTo("hero")}>
-            <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className={`${isScrolled ? "h-10 md:h-14" : "h-12 md:h-20"} w-auto transition-all drop-shadow-sm`} />
+            <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className={`${isScrolled ? "h-14 md:h-20" : "h-16 md:h-24"} w-auto transition-all drop-shadow-sm`} />
             <div className="hidden lg:block border-l border-border pl-3">
               <div className="font-condensed text-primary text-xs font-bold tracking-widest uppercase leading-tight">{BUSINESS.location}</div>
               <div className="font-condensed text-muted-foreground text-xs font-medium tracking-wider uppercase leading-tight">Lic. #CFC1429294</div>
@@ -578,6 +578,88 @@ function LandingPage() {
                 {t.callUsNow} <ArrowRight className="w-5 h-5" />
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Find Us — Google Maps + Reviews CTA */}
+      <section id="find-us" className="py-16 md:py-24 bg-background border-y border-border">
+        <div className="container mx-auto px-6">
+          <Reveal className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
+              <MapPin className="w-4 h-4" /> {lang === "es" ? "Encuéntrenos" : "Find Us"}
+            </h2>
+            <h3 className="text-4xl md:text-5xl font-condensed font-bold uppercase tracking-wide text-foreground mb-4">
+              {lang === "es" ? "Visítenos o Déjenos una Reseña" : "Visit Us or Leave a Review"}
+            </h3>
+            <p className="text-muted-foreground text-lg">
+              {lang === "es"
+                ? "Nuestro taller en el corazón de Lake Worth Beach. ¿Trabajamos con usted? Nos encantaría escuchar de usted en Google."
+                : "Our shop in the heart of Lake Worth Beach. Worked with us? We'd love to hear from you on Google."}
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Map embed */}
+            <Reveal className="lg:col-span-2 rounded-xl overflow-hidden shadow-[0_12px_40px_rgba(30,95,159,0.15)] border border-border bg-card">
+              <iframe
+                title="Palm Beach Plumbing Contractor Inc location"
+                src="https://www.google.com/maps?q=Palm+Beach+Plumbing+Contractor+Inc+1107+N+A+St+Lake+Worth+Beach+FL+33460&output=embed"
+                width="100%"
+                height="380"
+                style={{ border: 0, display: "block" }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </Reveal>
+
+            {/* CTA stack */}
+            <Reveal delay={120} className="flex flex-col gap-4">
+              <div className="bg-card border border-border rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <MapPin className="w-6 h-6 text-primary shrink-0" />
+                  <div className="font-condensed font-bold uppercase tracking-wide text-foreground">
+                    {lang === "es" ? "Dirección" : "Address"}
+                  </div>
+                </div>
+                <div className="text-muted-foreground leading-snug">{biz.address}</div>
+              </div>
+
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Palm+Beach+Plumbing+Contractor+Inc+1107+N+A+St+Lake+Worth+Beach+FL+33460"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-primary hover:bg-primary/90 text-white px-6 py-4 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 shadow-[0_8px_30px_rgba(30,95,159,0.25)] flex items-center justify-center gap-2"
+              >
+                <MapPin className="w-5 h-5" />
+                {lang === "es" ? "Cómo Llegar" : "Get Directions"}
+              </a>
+
+              <a
+                href="https://search.google.com/local/writereview?placeid=Palm+Beach+Plumbing+Contractor+Inc+Lake+Worth+Beach+FL"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  // Try the search-for-review URL; if that fails the maps search will still find them
+                  e.preventDefault();
+                  window.open(
+                    "https://www.google.com/maps/search/?api=1&query=Palm+Beach+Plumbing+Contractor+Inc+Lake+Worth+Beach+FL+33460",
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }}
+                className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-4 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
+              >
+                <Star className="w-5 h-5 fill-current" />
+                {lang === "es" ? "Deje una Reseña" : "Leave a Google Review"}
+              </a>
+
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 text-center text-sm text-muted-foreground">
+                <span className="font-bold text-foreground">{lang === "es" ? "Llámenos directamente: " : "Call us directly: "}</span>
+                <a href={`tel:${BUSINESS.phoneRaw}`} className="text-primary font-bold hover:underline">{BUSINESS.phone}</a>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

@@ -7,7 +7,7 @@ export const BUSINESS = {
   name: "Palm Beach Plumbing Contractor Inc",
   shortName: "Palm Beach Plumbing",
   trade: "Plumbing",
-  location: "Lake Worth Beach, FL",
+  location: "Palm Beach area, FL",
   serviceArea: "Palm Beach County and surrounding areas",
 
   phone: "(561) 685-5153",
@@ -30,16 +30,16 @@ export const BUSINESS = {
 export const HERO = {
   headline1: "Reliable Plumbing",
   headline2: "Done Right the First Time",
-  subheading: "Licensed and insured plumbing contractors serving Lake Worth and the greater Palm Beach area. Fast response, honest pricing, quality workmanship.",
+  subheading: "Licensed and insured plumbing contractors serving the greater Palm Beach area. Fast response, honest pricing, quality workmanship.",
   cta1: "Call (561) 685-5153",
   cta2: "Get a Free Quote",
 };
 
 export const ABOUT = {
   headline: "Your Local Palm Beach Plumbers",
-  body1: "Palm Beach Plumbing Contractor Inc is a family-owned, fully licensed plumbing company proudly serving Lake Worth Beach and all of Palm Beach County. From small leaks to full repipes, we treat every job like it's in our own home.",
+  body1: "Palm Beach Plumbing Contractor Inc is a family-owned, fully licensed plumbing company proudly serving the entire Palm Beach area. From small leaks to full repipes, we treat every job like it's in our own home.",
   body2: "We show up when we say we will, give you a clear price up front, and back our work with the kind of warranty you'd expect from a contractor who plans to be your plumber for years to come.",
-  teamPhotoAlt: "Palm Beach Plumbing team in Lake Worth",
+  teamPhotoAlt: "Palm Beach Plumbing service van",
 };
 
 export const CTA_BANNER = {
@@ -141,16 +141,16 @@ export const PITCH_MODE = true;
 export const HERO_ES = {
   headline1: "Plomería Confiable",
   headline2: "Hecha Bien la Primera Vez",
-  subheading: "Plomeros con licencia y seguro al servicio de Lake Worth y todo el área de Palm Beach. Respuesta rápida, precios honestos, trabajo de calidad.",
+  subheading: "Plomeros con licencia y seguro al servicio del área de Palm Beach. Respuesta rápida, precios honestos, trabajo de calidad.",
   cta1: "Llame al (561) 685-5153",
   cta2: "Cotización Gratis",
 };
 
 export const ABOUT_ES = {
   headline: "Sus Plomeros Locales de Palm Beach",
-  body1: "Palm Beach Plumbing Contractor Inc es una empresa familiar, totalmente licenciada, orgullosa de servir a Lake Worth Beach y todo el condado de Palm Beach. Desde pequeñas fugas hasta repipes completos, tratamos cada trabajo como si fuera en nuestra propia casa.",
+  body1: "Palm Beach Plumbing Contractor Inc es una empresa familiar, totalmente licenciada, orgullosa de servir a toda el área de Palm Beach. Desde pequeñas fugas hasta repipes completos, tratamos cada trabajo como si fuera en nuestra propia casa.",
   body2: "Llegamos cuando decimos que llegaremos, le damos un precio claro por adelantado, y respaldamos nuestro trabajo con la garantía que esperaría de un contratista que planea ser su plomero por muchos años.",
-  teamPhotoAlt: "Equipo de Palm Beach Plumbing en Lake Worth",
+  teamPhotoAlt: "Camioneta de servicio de Palm Beach Plumbing",
 };
 
 export const CTA_BANNER_ES = {
