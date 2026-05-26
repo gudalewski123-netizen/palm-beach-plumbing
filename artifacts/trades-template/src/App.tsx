@@ -3,12 +3,18 @@ import { PhoneCall, ShieldCheck, Hammer, Menu, X, MapPin, ChevronRight, Star, Ar
 import { FaWhatsapp } from "react-icons/fa";
 import { Switch, Route, Router as WouterRouter, Link } from "wouter";
 
-// Pure-CSS scroll fade-in (avoids framer-motion's React-duplicate issue in pnpm)
+// Pure-CSS scroll fade-in (avoids framer-motion's React-duplicate issue in pnpm).
+// Skips the animation if the element is already in viewport at mount — otherwise
+// instant-scrolls / reloads would leave above-the-fold content invisible until
+// the IntersectionObserver tick.
 function useFadeOnView<T extends HTMLElement>(): React.RefObject<T> {
   const ref = React.useRef<T>(null);
   React.useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < window.innerHeight * 0.85 && rect.bottom > 0;
+    if (alreadyVisible) return; // leave at default opacity 1, no animation needed
     el.style.opacity = "0";
     el.style.transform = "translateY(24px)";
     el.style.transition = "opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)";
@@ -271,20 +277,20 @@ function QuoteForm() {
             <div className="grid md:grid-cols-2 gap-5">
               <input
                 name="name" required placeholder="Your name *"
-                className="bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
+                className="bg-background border border-border rounded px-4 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
               />
               <input
                 name="phone" required type="tel" placeholder="Phone *"
-                className="bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
+                className="bg-background border border-border rounded px-4 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
               />
             </div>
             <input
               name="email" required type="email" placeholder="Email *"
-              className="w-full bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
+              className="w-full bg-background border border-border rounded px-4 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
             />
             <select
               name="service" required defaultValue=""
-              className="w-full bg-background border border-border rounded px-4 py-3 text-foreground focus:outline-none focus:border-primary"
+              className="w-full bg-background border border-border rounded px-4 py-4 text-base text-foreground focus:outline-none focus:border-primary"
             >
               <option value="" disabled>Which service do you need? *</option>
               {SERVICES.map((s) => (
@@ -294,7 +300,7 @@ function QuoteForm() {
             </select>
             <textarea
               name="message" rows={4} placeholder="Tell us about your project (optional)"
-              className="w-full bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary resize-none"
+              className="w-full bg-background border border-border rounded px-4 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary resize-none"
             />
             <button
               type="submit" disabled={status === "submitting"}
@@ -358,8 +364,8 @@ function LandingPage() {
             <button onClick={() => scrollTo("about")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navAbout}</button>
             <button onClick={() => scrollTo("reviews")} className="font-condensed text-lg uppercase tracking-wide hover:text-primary transition-colors">{t.navReviews}</button>
             <div className="flex items-center gap-1 border border-border rounded px-1 py-1 font-condensed text-sm font-bold uppercase tracking-widest" aria-label="Language selector">
-              <button onClick={() => setLang("en")} className={`px-2 py-1 rounded transition-colors ${lang === "en" ? "bg-primary text-white" : "text-muted-foreground hover:text-white"}`} aria-pressed={lang === "en"}>EN</button>
-              <button onClick={() => setLang("es")} className={`px-2 py-1 rounded transition-colors ${lang === "es" ? "bg-primary text-white" : "text-muted-foreground hover:text-white"}`} aria-pressed={lang === "es"}>ES</button>
+              <button onClick={() => setLang("en")} className={`px-3 py-2 rounded transition-colors min-w-[40px] ${lang === "en" ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"}`} aria-pressed={lang === "en"}>EN</button>
+              <button onClick={() => setLang("es")} className={`px-3 py-2 rounded transition-colors min-w-[40px] ${lang === "es" ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"}`} aria-pressed={lang === "es"}>ES</button>
             </div>
             <a href={waLink(BUSINESS.phoneRaw, t.whatsappPrefill)} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="flex items-center justify-center w-11 h-11 rounded bg-[#25D366] hover:bg-[#1ebe5d] text-white transition-all hover:-translate-y-1 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
               <FaWhatsapp className="w-6 h-6" />
@@ -369,15 +375,19 @@ function LandingPage() {
               {BUSINESS.phone}
             </a>
           </div>
-          <button className="md:hidden text-foreground p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          <button
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            className="md:hidden text-foreground w-11 h-11 flex items-center justify-center -mr-2 rounded hover:bg-card transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl pt-24 px-6 flex flex-col gap-6 md:hidden">
+        <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl pt-24 pb-8 px-6 flex flex-col gap-5 md:hidden overflow-y-auto">
           <button onClick={() => scrollTo("services")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-border pb-4">{t.navServices}</button>
           <button onClick={() => scrollTo("about")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-border pb-4">{t.navAbout}</button>
           <button onClick={() => scrollTo("reviews")} className="font-condensed text-3xl uppercase tracking-wide text-left border-b border-border pb-4">{t.navReviews}</button>
