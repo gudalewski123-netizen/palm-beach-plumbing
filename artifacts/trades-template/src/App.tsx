@@ -353,7 +353,7 @@ function LandingPage() {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border py-4 shadow-2xl" : "bg-transparent py-6"}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => scrollTo("hero")}>
-            <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className={`${isScrolled ? "h-14 md:h-20" : "h-16 md:h-24"} w-auto transition-all drop-shadow-sm`} />
+            <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className={`${isScrolled ? "h-16 md:h-24" : "h-20 md:h-32"} w-auto transition-all drop-shadow-sm`} />
             <div className="hidden lg:block border-l border-border pl-3">
               <div className="font-condensed text-primary text-xs font-bold tracking-widest uppercase leading-tight">{BUSINESS.location}</div>
               <div className="font-condensed text-muted-foreground text-xs font-medium tracking-wider uppercase leading-tight">Lic. #CFC1429294</div>
@@ -538,8 +538,7 @@ function LandingPage() {
         heading={lang === "es" ? "Plomería de Calidad, Foto Por Foto" : "Quality Plumbing, Photo by Photo"}
         photos={[
           { src: "/van.jpg", alt: "Palm Beach Plumbing Contractor service van — Lic. #CFC1429294" },
-          { src: "/hero-bg.jpg", alt: "Faucet with running water" },
-          { src: "/services-bg.jpg", alt: "Brass spigot fitting under pressure" },
+          { src: "/services-bg.jpg", alt: "Brass plumbing fittings under pressure" },
         ]}
       />
 
