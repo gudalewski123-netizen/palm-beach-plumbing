@@ -538,6 +538,9 @@ function LandingPage() {
         heading={lang === "es" ? "Plomería de Calidad, Foto Por Foto" : "Quality Plumbing, Photo by Photo"}
         photos={[
           { src: "/van.jpg", alt: "Palm Beach Plumbing Contractor service van — Lic. #CFC1429294" },
+          { src: "/gallery-1.jpg", alt: "Plumber installing fixtures in a finished bathroom" },
+          { src: "/gallery-2.jpg", alt: "Plumber repairing a P-trap under a sink" },
+          { src: "/gallery-3.jpg", alt: "Plumber working on under-sink fittings with tools laid out" },
           { src: "/services-bg.jpg", alt: "Brass plumbing fittings under pressure" },
         ]}
       />
