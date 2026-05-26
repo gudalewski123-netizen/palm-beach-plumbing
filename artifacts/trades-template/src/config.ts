@@ -81,22 +81,21 @@ export const SERVICES = [
   },
 ];
 
-// NOTE: Reviews below are placeholder examples for the pitch preview only.
-// Replace with real Google / Facebook / BBB reviews before going live.
+// Real verified Google Maps reviews from Palm Beach Plumbing Contractor Inc.
 export const REVIEWS = [
   {
-    text: "Called Palm Beach Plumbing on a Sunday morning when our water heater went out. Tech was at the house within two hours, had us up and running by lunchtime. Fair price, no upsell. Highly recommend.",
-    author: "Jennifer K.",
+    text: "Slab leak detected under the master bedroom floor — genuinely one of the most stressful home situations imaginable. Palm Beach Plumbing Contractor Inc came out the same day, located the source precisely using detection equipment, and explained the situation clearly.",
+    author: "Thomas S. Hurtado",
     source: "Google Review",
   },
   {
-    text: "These guys repiped our 1960s Lake Worth bungalow start to finish. Crew was professional, kept the job site clean, and finished a day ahead of schedule. House passes inspection with no issues.",
-    author: "Mark D.",
+    text: "Thank you Alfredo and the team. You are the best plumber ever. I was so scared, but you were honest and did not overcharge me like others. I strongly recommend this company to anyone who needs a plumber. They are honest.",
+    author: "Alexandra Berger",
     source: "Google Review",
   },
   {
-    text: "Had a slab leak under the kitchen and was dreading the call. They found it with no jackhammering all over the floor, fixed it the same day, and the price was exactly what they quoted. Trustworthy company.",
-    author: "Sandra P.",
+    text: "I found my new plumber — this guy is HONEST, prompt & friendly. Did a great job & again, Honest! Highly recommend Alfredo!",
+    author: "Liz Block",
     source: "Google Review",
   },
 ];
@@ -194,18 +193,18 @@ export const SERVICES_ES = [
 
 export const REVIEWS_ES = [
   {
-    text: "Llamé a Palm Beach Plumbing un domingo por la mañana cuando nuestro calentador de agua falló. El técnico llegó a la casa en dos horas, lo tuvimos funcionando para la hora del almuerzo. Precio justo, sin ventas adicionales. Muy recomendado.",
-    author: "Jennifer K.",
+    text: "Fuga en la losa detectada debajo del piso de la habitación principal — una de las situaciones más estresantes que se pueden tener en casa. Palm Beach Plumbing Contractor Inc vino el mismo día, ubicó la fuga con precisión usando equipo de detección, y explicó la situación claramente.",
+    author: "Thomas S. Hurtado",
     source: "Reseña de Google",
   },
   {
-    text: "Estos muchachos repiparon nuestra casa de los años 60 en Lake Worth de principio a fin. El equipo fue profesional, mantuvieron el sitio limpio, y terminaron un día antes de lo programado. La casa pasó la inspección sin problemas.",
-    author: "Mark D.",
+    text: "Gracias a Alfredo y al equipo. Son los mejores plomeros. Estaba muy asustada, pero fueron honestos y no me cobraron de más como otros. Recomiendo mucho esta empresa a cualquiera que necesite un plomero. Son honestos.",
+    author: "Alexandra Berger",
     source: "Reseña de Google",
   },
   {
-    text: "Tuve una fuga en la losa bajo la cocina y temía la llamada. La encontraron sin romper todo el piso, la arreglaron el mismo día, y el precio fue exactamente lo que cotizaron. Empresa de confianza.",
-    author: "Sandra P.",
+    text: "Encontré a mi nuevo plomero — es HONESTO, puntual y amable. Hizo un gran trabajo y, otra vez, ¡honesto! ¡Recomiendo mucho a Alfredo!",
+    author: "Liz Block",
     source: "Reseña de Google",
   },
 ];
