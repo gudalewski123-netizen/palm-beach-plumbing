@@ -51,7 +51,7 @@ function GallerySection({ heading, eyebrow, photos }: { heading: string; eyebrow
     return () => clearInterval(t);
   }, [paused, photos.length]);
   return (
-    <section id="gallery" className="py-24 bg-card relative border-y border-border overflow-hidden">
+    <section id="gallery" className="py-16 md:py-24 bg-card relative border-y border-border overflow-hidden">
       <div className="container mx-auto px-6">
         <Reveal className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
@@ -280,7 +280,7 @@ function QuoteForm() {
             </div>
             <input
               name="email" required type="email" placeholder="Email *"
-              className="w-full bg-background border border-border rounded px-4 py-3 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary"
+              className="w-full bg-background border border-border rounded px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
             />
             <select
               name="service" required defaultValue=""
@@ -462,7 +462,7 @@ function LandingPage() {
       </section>
 
       {/* Services */}
-      <section id="services" className="py-24 relative bg-background">
+      <section id="services" className="py-16 md:py-24 relative bg-background">
         <div className="container mx-auto px-6">
           <Reveal className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
@@ -493,7 +493,7 @@ function LandingPage() {
       </section>
 
       {/* Why Choose Us — trust-building feature grid */}
-      <section id="why" className="py-24 bg-card border-y border-border relative overflow-hidden">
+      <section id="why" className="py-16 md:py-24 bg-card border-y border-border relative overflow-hidden">
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-accent/10 blur-3xl pointer-events-none"></div>
         <div className="container mx-auto px-6 relative">
@@ -534,7 +534,7 @@ function LandingPage() {
       />
 
       {/* About */}
-      <section id="about" className="py-24 bg-card relative border-y border-border">
+      <section id="about" className="py-16 md:py-24 bg-card relative border-y border-border">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
@@ -578,15 +578,15 @@ function LandingPage() {
         <div className="container mx-auto px-6 relative z-10 text-center">
           <h2 className="text-4xl md:text-6xl font-condensed font-black uppercase tracking-wide text-white mb-6">{ctaBanner.headline}</h2>
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium">{ctaBanner.body}</p>
-          <a href={`tel:${BUSINESS.phoneRaw}`} className="inline-flex items-center justify-center gap-3 bg-background hover:bg-background/90 text-white px-10 py-5 rounded font-condensed text-3xl uppercase tracking-wider font-black transition-all hover:scale-105 shadow-2xl">
-            <PhoneCall className="w-8 h-8 text-primary" />
+          <a href={`tel:${BUSINESS.phoneRaw}`} className="inline-flex items-center justify-center gap-3 bg-white hover:bg-white/95 text-primary px-8 md:px-10 py-4 md:py-5 rounded font-condensed text-2xl md:text-3xl uppercase tracking-wider font-black transition-all hover:scale-105 shadow-2xl">
+            <PhoneCall className="w-7 h-7 md:w-8 md:h-8 text-primary" />
             {BUSINESS.phone}
           </a>
         </div>
       </section>
 
       {/* Reviews */}
-      <section id="reviews" className="py-24 bg-background relative">
+      <section id="reviews" className="py-16 md:py-24 bg-background relative">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
@@ -612,7 +612,7 @@ function LandingPage() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24 bg-card border-t border-border">
+      <section id="contact" className="py-16 md:py-24 bg-card border-t border-border">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-primary font-bold tracking-widest uppercase mb-4 text-sm flex items-center justify-center gap-2">
