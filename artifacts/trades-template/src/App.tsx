@@ -639,18 +639,9 @@ function LandingPage() {
               </a>
 
               <a
-                href="https://search.google.com/local/writereview?placeid=Palm+Beach+Plumbing+Contractor+Inc+Lake+Worth+Beach+FL"
+                href="https://search.google.com/local/writereview?placeid=ChIJL22SmNfYiOFKIRikLakw"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={(e) => {
-                  // Try the search-for-review URL; if that fails the maps search will still find them
-                  e.preventDefault();
-                  window.open(
-                    "https://www.google.com/maps/search/?api=1&query=Palm+Beach+Plumbing+Contractor+Inc+Lake+Worth+Beach+FL+33460",
-                    "_blank",
-                    "noopener,noreferrer"
-                  );
-                }}
                 className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-4 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
               >
                 <Star className="w-5 h-5 fill-current" />
