@@ -77,6 +77,9 @@ function GallerySection({ heading, eyebrow, photos }: { heading: string; eyebrow
                 key={p.src}
                 src={p.src}
                 alt={p.alt}
+                width="1600"
+                height="1000"
+                decoding="async"
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-in-out ${i === idx ? "opacity-100" : "opacity-0"}`}
                 loading={i === 0 ? "eager" : "lazy"}
               />
@@ -410,7 +413,7 @@ function LandingPage() {
       {/* Hero */}
       <section id="hero" className="relative min-h-[90vh] flex items-center pt-20">
         <div className="absolute inset-0 z-0">
-          <img src="/hero-bg.jpg" alt="Plumbing work — water from faucet" className="w-full h-full object-cover animate-ken-burns" />
+          <img src="/hero-bg.jpg" alt="Plumbing work — water from faucet" width="1920" height="1080" fetchPriority="high" decoding="async" className="w-full h-full object-cover animate-ken-burns" />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 md:via-white/75 to-white/30 md:to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-white/10"></div>
         </div>
@@ -551,7 +554,7 @@ function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="hidden md:block absolute -inset-4 border border-primary/20 rounded translate-x-4 translate-y-4 pointer-events-none"></div>
-              <img src="/team-photo.jpg" alt={about.teamPhotoAlt} className="w-full h-auto rounded relative z-10 hover:scale-[1.02] transition-all duration-500" />
+              <img src="/team-photo.jpg" alt={about.teamPhotoAlt} width="1920" height="1080" loading="lazy" decoding="async" className="w-full h-auto rounded relative z-10 hover:scale-[1.02] transition-all duration-500" />
               {showYearsBadge && (
                 <div className="absolute bottom-8 -right-8 bg-primary p-6 rounded shadow-2xl z-20 hidden md:block">
                   <div className="font-condensed text-5xl font-black text-white leading-none mb-1">{BUSINESS.yearsInBusiness}+</div>

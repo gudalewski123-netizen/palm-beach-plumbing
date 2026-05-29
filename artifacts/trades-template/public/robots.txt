@@ -33,4 +33,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://{{DOMAIN}}/sitemap.xml
+Sitemap: https://palm-beach-plumbing-zeta.vercel.app/sitemap.xml
