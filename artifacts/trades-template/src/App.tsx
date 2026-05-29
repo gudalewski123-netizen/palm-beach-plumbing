@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PhoneCall, ShieldCheck, Hammer, Menu, X, MapPin, ChevronRight, Star, ArrowRight, Zap, MessageSquare, Mail, MessageCircle } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaFacebookF } from "react-icons/fa";
 import { Switch, Route, Router as WouterRouter, Link } from "wouter";
 
 // Pure-CSS scroll fade-in (avoids framer-motion's React-duplicate issue in pnpm).
@@ -657,6 +657,16 @@ function LandingPage() {
                 {lang === "es" ? "Deje una Reseña" : "Leave a Google Review"}
               </a>
 
+              <a
+                href="https://www.facebook.com/PalmBeachPlumbingContractorInc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#1877F2] hover:bg-[#1565d8] text-white px-6 py-4 rounded font-condensed text-xl uppercase tracking-wider font-bold transition-all hover:-translate-y-1 shadow-[0_8px_30px_rgba(24,119,242,0.25)] flex items-center justify-center gap-2"
+              >
+                <FaFacebookF className="w-5 h-5" />
+                {lang === "es" ? "Síganos en Facebook" : "Follow on Facebook"}
+              </a>
+
               <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 text-center text-sm text-muted-foreground">
                 <span className="font-bold text-foreground">{lang === "es" ? "Llámenos directamente: " : "Call us directly: "}</span>
                 <a href={`tel:${BUSINESS.phoneRaw}`} className="text-primary font-bold hover:underline">{BUSINESS.phone}</a>
@@ -786,10 +796,19 @@ function LandingPage() {
             <div className="flex items-center gap-3">
               <img src="/logo.png" alt="Palm Beach Plumbing Contractor Inc" className="h-12 w-auto bg-white rounded px-2 py-1" />
             </div>
-            <div className="text-muted-foreground text-sm font-medium">
+            <div className="text-muted-foreground text-sm font-medium text-center">
               &copy; {new Date().getFullYear()} {BUSINESS.name}. {t.allRightsReserved}.
             </div>
-            <div className="flex gap-6 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+            <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-sm font-bold uppercase tracking-wider text-muted-foreground">
+              <a
+                href="https://www.facebook.com/PalmBeachPlumbingContractorInc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1877F2] text-white hover:bg-[#1565d8] transition-colors"
+              >
+                <FaFacebookF className="w-4 h-4" />
+              </a>
               <span className="hover:text-white cursor-pointer transition-colors">{t.privacy}</span>
               <span className="hover:text-white cursor-pointer transition-colors">{t.terms}</span>
               <Link href="/admin" className="hover:text-white cursor-pointer transition-colors">{t.admin}</Link>
